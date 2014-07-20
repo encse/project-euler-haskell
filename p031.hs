@@ -1,6 +1,3 @@
-import Data.Char
-import Data.List
-
 change 0 _ = 1
 change n [] = 0
 change n (p:ps) =
