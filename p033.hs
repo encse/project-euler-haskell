@@ -1,4 +1,3 @@
-
 import Data.Ratio
 
 candidates = [(x,y) | x <- [10..99], y <- [x+1..99]]
