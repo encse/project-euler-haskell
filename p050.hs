@@ -31,5 +31,5 @@ max2 (a,b) (x,y) = if (b<y) then (x,y) else (a,b)
 
 solveN n = foldr1 max2 $ allPrimeAndSeqLength (takeWhile (<n) primes) n
 
-solve = solveN 1000000
+solve = fst $ solveN 1000000
 	
