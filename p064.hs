@@ -4,6 +4,15 @@ import Data.Maybe
 
 data Expr = Expr Int Int Int Int Int deriving (Eq)
 
+instance Show Expr where
+    show (Expr a b c d n) = "(" ++ showI a ++ showX b ++ ") / (" ++ showI c ++ showX d ++ ")"
+   		where 
+   			showI x = show' x ++ "√"++ show n++""
+   			showX x 
+   				| x < 0 = " - " ++ show' (-x)
+   				| otherwise = " + " ++  show' x
+   			show' x = show x
+
 mul (Expr a b c d n1) (Expr a' b' c' d' n2) 
 	| n1 == n2 =  Expr (a*b' + a'*b) (a*a'*n1 + b*b') (c*d' + c'*d) (c*c'*n1 + d*d') n1
 
@@ -29,16 +38,6 @@ simplify (Expr a b c d n) =
 	in Expr (a `div` g) (b `div` g) (c `div` g) (d `div` g) n
 
 
-instance Show Expr where
-    show (Expr a b c d n) = "(" ++ showI a ++ showX b ++ ") / (" ++ showI c ++ showX d ++ ")"
-   		where 
-   			showI x = show' x ++ "√"++ show n++""
-   			showX x 
-   				| x < 0 = " - " ++ show' (-x)
-   				| otherwise = " + " ++  show' x
-   			
-   			show' x = show x
-
 
 step e@(Expr a b c d n) = 
 	let 
@@ -48,7 +47,7 @@ step e@(Expr a b c d n) =
 	in
 		(intPart, remainder)
 
---isSquare :: Int -> Bool
+
 isSquare n = (floor $ sqrt $ fromIntegral $ n) ^  2 == n
 
 steps e esSeen 
